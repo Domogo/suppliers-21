@@ -4,11 +4,26 @@ type Supplier = {
   description: string
 }
 
-type SuppliersResponse = {
+type Quote = {
+  id: number
+  amount: string
+  created: string
+  title: string
+  supplier_id?: number
+}
+
+type PagedResult = {
   count: number
   next: string
   previous: string
+}
+
+type SuppliersResponse = PagedResult & {
   results: Supplier[]
+}
+
+type QuotesResponse = PagedResult & {
+  results: Quote[]
 }
 
 type LoginData = {

@@ -2,6 +2,7 @@
 import { useFetch } from '@/composables/fetch'
 import { SUPPLIERS_URL } from '@/utils/constants'
 import { ref } from 'vue'
+import CardLink from './shared/CardLink.vue'
 
 const url = ref(SUPPLIERS_URL)
 
@@ -24,12 +25,17 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
   <div v-if="error">{{ error }}</div>
 
   <div class="container">
-    <div class="card" v-for="supplier in data?.results" :key="supplier.id">
-      <h2>
-        {{ supplier.name }}
-      </h2>
+    <CardLink
+      :supplier-id="supplier.id"
+      class="card"
+      v-for="supplier in data?.results"
+      :key="supplier.id"
+    >
+      <template #title>
+        <h2>{{ supplier.name }}</h2>
+      </template>
       <p>{{ supplier.description }}</p>
-    </div>
+    </CardLink>
   </div>
 
   <div>

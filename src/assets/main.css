@@ -33,3 +33,17 @@ a,
   border-radius: 1rem;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: hsla(160, 100%, 37%, 1);
+  color: white;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+button:hover {
+  background-color: hsla(160, 100%, 37%, 0.8);
+}

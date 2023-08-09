@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { useRoute } from 'vue-router'
+import SupplierDetails from '@/components/SupplierDetails.vue'
+
+const route = useRoute()
+const supplierId = route.params.id as string
+</script>
+
 <template>
-  <div>Supplier details</div>
+  <Suspense>
+    <SupplierDetails :supplierId="supplierId" />
+    <template #fallback>
+      <div>No supplier found</div>
+    </template>
+  </Suspense>
 </template>
