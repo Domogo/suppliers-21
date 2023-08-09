@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import { LOCAL_STORAGE_TOKEN, SIGNUP_URL } from '@/utils/constants'
+import { AUTH_TOKEN, SIGNUP_URL } from '@/utils/constants'
 
 const username = ref('')
 const password = ref('')
@@ -10,19 +10,6 @@ const firstName = ref('')
 const lastName = ref('')
 const email = ref('')
 const router = useRouter()
-
-type NewUserData = {
-  username: string
-  password: string
-  firstName: string
-  lastName: string
-  email: string
-}
-
-type SignupResponse = NewUserData & {
-  id: string
-  auth_token: string
-}
 
 const postNewUser = async (data: NewUserData) => {
   const response = await axios.post<SignupResponse>(SIGNUP_URL, data).catch((err) => {
@@ -46,7 +33,7 @@ const signup = async () => {
     return
   }
 
-  localStorage.setItem(LOCAL_STORAGE_TOKEN, token)
+  localStorage.setItem(AUTH_TOKEN, token)
   router.push('/')
 }
 </script>

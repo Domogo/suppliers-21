@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { LOCAL_STORAGE_TOKEN, LOGIN_URL } from '@/utils/constants'
+import { AUTH_TOKEN, LOGIN_URL } from '@/utils/constants'
 import axios from 'axios'
 
 const username = ref('')
 const password = ref('')
 const router = useRouter()
 
-type LoginData = {
-  username: string
-  password: string
-}
-type LoginResponse = {
-  token: string
-}
 const fetchUserData = async (data: LoginData) => {
   const response = await axios.post<LoginResponse>(LOGIN_URL, data).catch((err) => {
     console.error(err)
@@ -32,7 +25,7 @@ const login = async () => {
     return
   }
 
-  localStorage.setItem(LOCAL_STORAGE_TOKEN, token)
+  localStorage.setItem(AUTH_TOKEN, token)
   router.push('/')
 }
 </script>

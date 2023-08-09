@@ -7,4 +7,4 @@ export const LOGIN_URL = `${FEBRUARY_21_API_URL}${API_TOKEN_AUTH}`
 export const SIGNUP_URL = `${FEBRUARY_21_API_URL}${USERS}`
 export const SUPPLIERS_URL = `${FEBRUARY_21_API_URL}${SUPPLIERS}`
 
-export const LOCAL_STORAGE_TOKEN = 'suppliers-auth-token'
+export const AUTH_TOKEN = 'suppliers-auth-token'
