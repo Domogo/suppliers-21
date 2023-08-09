@@ -3,6 +3,7 @@ import { useFetch } from '@/composables/fetch'
 import { SUPPLIERS_URL } from '@/utils/constants'
 import { ref } from 'vue'
 import CardLink from './shared/CardLink.vue'
+import PaginationControls from './shared/PaginationControls.vue'
 
 const url = ref(SUPPLIERS_URL)
 
@@ -27,12 +28,13 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
       </CardLink>
     </div>
 
-    <div>
-      <button v-if="data?.previous" @click.prevent="url = data?.previous">Previous</button>
-      <button v-if="data?.next" @click.prevent="url = data?.next">Next</button>
-
-      <div v-if="data">There are {{ data?.count }} suppliers total.</div>
-    </div>
+    <PaginationControls
+      :url="url"
+      :previous="data?.previous"
+      :next="data?.next"
+      :count="data?.count"
+      @update-url="(newUrl) => (url = newUrl)"
+    />
   </div>
   <div v-else>Loading...</div>
 </template>

@@ -4,6 +4,7 @@ import { QUOTES_URL } from '@/utils/constants'
 import { ref } from 'vue'
 import CardLink from './shared/CardLink.vue'
 import CardComponent from './shared/CardComponent.vue'
+import PaginationControls from './shared/PaginationControls.vue'
 
 const url = ref(QUOTES_URL)
 
@@ -35,12 +36,13 @@ const { data, error } = await useFetch<QuotesResponse>(url)
       </component>
     </div>
 
-    <div>
-      <button v-if="data?.previous" @click.prevent="url = data?.previous">Previous</button>
-      <button v-if="data?.next" @click.prevent="url = data?.next">Next</button>
-
-      <div>There are {{ data?.count }} quotes total.</div>
-    </div>
+    <PaginationControls
+      :url="url"
+      :previous="data?.previous"
+      :next="data?.next"
+      :count="data?.count"
+      @update-url="(newUrl) => (url = newUrl)"
+    />
   </div>
   <div v-else>Loading...</div>
 </template>
