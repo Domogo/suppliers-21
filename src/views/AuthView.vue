@@ -17,7 +17,7 @@ const toggleForm = () => {
 
   <component :is="selectedForm === 'login' ? LoginForm : SignupForm" />
 
-  <div>
+  <div class="toggle-section">
     <p v-if="selectedForm === 'login'">Don't have a user yet?</p>
     <p v-else>Already have a user?</p>
     <button @click="toggleForm">
@@ -25,3 +25,9 @@ const toggleForm = () => {
     </button>
   </div>
 </template>
+
+<style scoped>
+.toggle-section {
+  margin-top: 1rem;
+}
+</style>

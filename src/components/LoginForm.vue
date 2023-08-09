@@ -1,14 +1,3 @@
-<template>
-  <div>
-    <h1>This is the login page</h1>
-    <form class="login" @submit.prevent="login">
-      <input type="text" v-model="username" placeholder="username" />
-      <input type="password" v-model="password" placeholder="password" />
-      <button type="submit">Login</button>
-    </form>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -47,6 +36,17 @@ const login = async () => {
   router.push('/')
 }
 </script>
+
+<template>
+  <div>
+    <h1>Log in to see the suppliers!</h1>
+    <form class="login" @submit.prevent="login">
+      <input type="text" v-model="username" placeholder="username" />
+      <input type="password" v-model="password" placeholder="password" />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</template>
 
 <style scoped>
 .login {
