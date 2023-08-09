@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
 
-export const paginationStore = reactive({
+export const urlStore = reactive({
   url: ''
 })

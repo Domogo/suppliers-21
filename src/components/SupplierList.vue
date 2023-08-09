@@ -2,10 +2,10 @@
 import { useFetch } from '@/composables/fetch'
 import { SUPPLIERS_URL } from '@/utils/constants'
 import CardLink from './shared/CardLink.vue'
-import { paginationStore } from '@/stores/paginationStore'
+import { urlStore } from '@/stores/urlStore'
 import PaginationController from './shared/PaginationController.vue'
 
-paginationStore.url = SUPPLIERS_URL
+urlStore.url = SUPPLIERS_URL
 
 const { data, error } = await useFetch<SuppliersResponse>()
 </script>
@@ -32,3 +32,4 @@ const { data, error } = await useFetch<SuppliersResponse>()
   </div>
   <div v-else>Loading...</div>
 </template>
+@/stores/urlStore

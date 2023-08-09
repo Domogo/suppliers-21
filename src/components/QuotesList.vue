@@ -3,10 +3,10 @@ import { useFetch } from '@/composables/fetch'
 import { QUOTES_URL } from '@/utils/constants'
 import CardLink from './shared/CardLink.vue'
 import CardComponent from './shared/CardComponent.vue'
-import { paginationStore } from '@/stores/paginationStore'
+import { urlStore } from '@/stores/urlStore'
 import PaginationController from './shared/PaginationController.vue'
 
-paginationStore.url = QUOTES_URL
+urlStore.url = QUOTES_URL
 
 const { data, error } = await useFetch<QuotesResponse>()
 </script>
@@ -42,3 +42,4 @@ const { data, error } = await useFetch<QuotesResponse>()
   </div>
   <div v-else>Loading...</div>
 </template>
+@/stores/urlStore

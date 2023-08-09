@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch } from '@/composables/fetch'
-import { paginationStore } from '@/stores/paginationStore'
+import { urlStore } from '@/stores/urlStore'
 import { SUPPLIERS_URL } from '@/utils/constants'
 import { toRefs } from 'vue'
 
@@ -12,7 +12,7 @@ const props = defineProps({
 })
 
 const { supplierId } = toRefs(props)
-paginationStore.url = SUPPLIERS_URL + supplierId.value + '/'
+urlStore.url = SUPPLIERS_URL + supplierId.value + '/'
 
 const { data, error } = await useFetch<Supplier>()
 </script>
@@ -25,3 +25,4 @@ const { data, error } = await useFetch<Supplier>()
   </div>
   <div v-else>Loading...</div>
 </template>
+@/stores/urlStore

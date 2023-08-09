@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { paginationStore } from '@/stores/paginationStore'
+import { urlStore } from '@/stores/urlStore'
 
 const props = defineProps({
   previous: {
@@ -19,13 +19,12 @@ const props = defineProps({
 
 <template>
   <div>
-    <button v-if="props.previous" @click.prevent="paginationStore.url = props.previous">
-      Previous
-    </button>
-    <button v-if="props.next" @click.prevent="paginationStore.url = props.next">Next</button>
+    <button v-if="props.previous" @click.prevent="urlStore.url = props.previous">Previous</button>
+    <button v-if="props.next" @click.prevent="urlStore.url = props.next">Next</button>
 
     <div v-if="props.count">
       There are {{ props.count }} <slot name="type">suppliers</slot> total.
     </div>
   </div>
 </template>
+@/stores/urlStore
