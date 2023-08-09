@@ -16,7 +16,8 @@ const { data, error } = await useFetch<Supplier>(`${SUPPLIERS_URL}${supplierId.v
 
 <template>
   <div v-if="error">{{ error }}</div>
-
-  <h1>Supplier: {{ data?.name }}</h1>
-  <p>{{ data?.description }}</p>
+  <template v-else>
+    <h1>Supplier: {{ data?.name }}</h1>
+    <p>{{ data?.description }}</p>
+  </template>
 </template>

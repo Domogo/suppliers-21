@@ -9,7 +9,7 @@ export const useFetch = async <T>(url: string | Ref<string>) => {
   const authToken = localStorage.getItem(AUTH_TOKEN)
 
   if (!authToken) {
-    error.value = 'No auth token found'
+    error.value = 'No auth token found. Please log in or create a user.'
     return { data, error }
   }
 

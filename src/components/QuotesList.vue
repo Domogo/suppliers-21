@@ -21,32 +21,34 @@ const { data, error } = await useFetch<QuotesResponse>(url)
 </script>
 
 <template>
-  <h1>Quotes:</h1>
-
   <div v-if="error">{{ error }}</div>
 
-  <div class="container">
-    <component
-      :is="quote.supplier_id ? CardLink : CardComponent"
-      :supplier-id="quote.supplier_id"
-      class="card"
-      v-for="quote in data?.results"
-      :key="quote.id"
-    >
-      <template #title>
-        <h2>
-          {{ quote.title }}
-        </h2>
-      </template>
-      <p>Amount: {{ quote.amount }}</p>
-      <p>Created: {{ quote.created }}</p>
-      <p v-if="quote.supplier_id">Supplier id: {{ quote.supplier_id }}</p>
-    </component>
-  </div>
+  <template v-else>
+    <h1>Quotes:</h1>
 
-  <div>
-    <button v-if="data?.previous" @click.prevent="fetchPrev">Previous</button>
-    <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
-    <div>There are {{ data?.count }} quotes total.</div>
-  </div>
+    <div class="container">
+      <component
+        :is="quote.supplier_id ? CardLink : CardComponent"
+        :supplier-id="quote.supplier_id"
+        class="card"
+        v-for="quote in data?.results"
+        :key="quote.id"
+      >
+        <template #title>
+          <h2>
+            {{ quote.title }}
+          </h2>
+        </template>
+        <p>Amount: {{ quote.amount }}</p>
+        <p>Created: {{ quote.created }}</p>
+        <p v-if="quote.supplier_id">Supplier id: {{ quote.supplier_id }}</p>
+      </component>
+    </div>
+
+    <div>
+      <button v-if="data?.previous" @click.prevent="fetchPrev">Previous</button>
+      <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
+      <div>There are {{ data?.count }} quotes total.</div>
+    </div>
+  </template>
 </template>
