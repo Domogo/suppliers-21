@@ -7,16 +7,6 @@ import CardComponent from './shared/CardComponent.vue'
 
 const url = ref(QUOTES_URL)
 
-const fetchNext = () => {
-  if (!data.value?.next) return
-  url.value = data.value.next
-}
-
-const fetchPrev = () => {
-  if (!data.value?.previous) return
-  url.value = data.value.previous
-}
-
 const { data, error } = await useFetch<QuotesResponse>(url)
 </script>
 
@@ -46,8 +36,9 @@ const { data, error } = await useFetch<QuotesResponse>(url)
     </div>
 
     <div>
-      <button v-if="data?.previous" @click.prevent="fetchPrev">Previous</button>
-      <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
+      <button v-if="data?.previous" @click.prevent="url = data?.previous">Previous</button>
+      <button v-if="data?.next" @click.prevent="url = data?.next">Next</button>
+
       <div>There are {{ data?.count }} quotes total.</div>
     </div>
   </div>

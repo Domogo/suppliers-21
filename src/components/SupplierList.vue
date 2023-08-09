@@ -6,16 +6,6 @@ import CardLink from './shared/CardLink.vue'
 
 const url = ref(SUPPLIERS_URL)
 
-const fetchNext = () => {
-  if (!data.value?.next) return
-  url.value = data.value.next
-}
-
-const fetchPrev = () => {
-  if (!data.value?.previous) return
-  url.value = data.value.previous
-}
-
 const { data, error } = await useFetch<SuppliersResponse>(url)
 </script>
 
@@ -38,8 +28,9 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
     </div>
 
     <div>
-      <button v-if="data?.previous" @click.prevent="fetchPrev">Previous</button>
-      <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
+      <button v-if="data?.previous" @click.prevent="url = data?.previous">Previous</button>
+      <button v-if="data?.next" @click.prevent="url = data?.next">Next</button>
+
       <div v-if="data">There are {{ data?.count }} suppliers total.</div>
     </div>
   </div>
