@@ -1,7 +1,7 @@
 <template>
-  <div class="'login'">
+  <div>
     <h1>This is the login page</h1>
-    <form @submit.prevent="login">
+    <form class="login" @submit.prevent="login">
       <input type="text" v-model="username" placeholder="username" />
       <input type="password" v-model="password" placeholder="password" />
       <button type="submit">Login</button>
@@ -12,16 +12,55 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { LOCAL_STORAGE_TOKEN, LOGIN_URL } from '@/utils/constants'
+import axios from 'axios'
 
 const username = ref('')
 const password = ref('')
 const router = useRouter()
 
-const login = () => {
-  if (username.value === 'admin' && password.value === 'password') {
-    router.push('/home')
-  } else {
+type LoginData = {
+  username: string
+  password: string
+}
+type LoginResponse = {
+  token: string
+}
+const fetchUserData = async (data: LoginData) => {
+  const response = await axios.post<LoginResponse>(LOGIN_URL, data).catch((err) => {
+    console.error(err)
+    return undefined
+  })
+
+  return response?.data.token
+}
+
+const login = async () => {
+  const token = await fetchUserData({ username: username.value, password: password.value })
+
+  if (!token) {
     alert('Invalid username or password')
+    return
   }
+
+  localStorage.setItem(LOCAL_STORAGE_TOKEN, token)
+  router.push('/')
 }
 </script>
+
+<style scoped>
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login > input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.login > button {
+  max-width: 100px;
+}
+</style>
