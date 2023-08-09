@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useFetch } from '@/composables/fetch'
 import { SUPPLIERS_URL } from '@/utils/constants'
-import { ref } from 'vue'
 import CardLink from './shared/CardLink.vue'
-import PaginationControls from './shared/PaginationControls.vue'
+import { paginationStore } from '@/stores/paginationStore'
+import PaginationController from './shared/PaginationController.vue'
 
-const url = ref(SUPPLIERS_URL)
+paginationStore.url = SUPPLIERS_URL
 
-const { data, error } = await useFetch<SuppliersResponse>(url)
+const { data, error } = await useFetch<SuppliersResponse>()
 </script>
 
 <template>
@@ -28,13 +28,7 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
       </CardLink>
     </div>
 
-    <PaginationControls
-      :url="url"
-      :previous="data?.previous"
-      :next="data?.next"
-      :count="data?.count"
-      @update-url="(newUrl) => (url = newUrl)"
-    />
+    <PaginationController :previous="data?.previous" :next="data?.next" :count="data?.count" />
   </div>
   <div v-else>Loading...</div>
 </template>

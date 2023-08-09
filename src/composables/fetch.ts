@@ -1,8 +1,9 @@
+import { paginationStore } from '@/stores/paginationStore'
 import { AUTH_TOKEN } from '@/utils/constants'
 import axios from 'axios'
-import { ref, watchEffect, toValue, type Ref } from 'vue'
+import { ref, watchEffect, toValue } from 'vue'
 
-export const useFetch = async <T>(url: string | Ref<string>) => {
+export const useFetch = async <T>() => {
   const data = ref<T>()
   const error = ref<string>()
 
@@ -17,7 +18,7 @@ export const useFetch = async <T>(url: string | Ref<string>) => {
     data.value = undefined
     error.value = undefined
 
-    const urlValue = toValue(url)
+    const urlValue = toValue(paginationStore.url)
 
     const response = await axios
       .get<T>(urlValue, {
