@@ -23,7 +23,7 @@ const { data, error } = await useFetch<QuotesResponse>(url)
 <template>
   <div v-if="error">{{ error }}</div>
 
-  <template v-else>
+  <div v-if="data">
     <h1>Quotes:</h1>
 
     <div class="container">
@@ -50,5 +50,6 @@ const { data, error } = await useFetch<QuotesResponse>(url)
       <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
       <div>There are {{ data?.count }} quotes total.</div>
     </div>
-  </template>
+  </div>
+  <div v-else>Loading...</div>
 </template>

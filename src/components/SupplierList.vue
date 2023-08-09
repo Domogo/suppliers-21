@@ -21,7 +21,7 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
 
 <template>
   <div v-if="error">{{ error }}</div>
-  <template v-else>
+  <div v-if="data">
     <h1>Suppliers:</h1>
     <div class="container">
       <CardLink
@@ -42,5 +42,6 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
       <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
       <div v-if="data">There are {{ data?.count }} suppliers total.</div>
     </div>
-  </template>
+  </div>
+  <div v-else>Loading...</div>
 </template>
