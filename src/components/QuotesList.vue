@@ -42,7 +42,9 @@ const { data, error } = await useFetch<QuotesResponse>(url)
       :next="data?.next"
       :count="data?.count"
       @update-url="(newUrl) => (url = newUrl)"
-    />
+    >
+      <template #type> quotes </template>
+    </PaginationControls>
   </div>
   <div v-else>Loading...</div>
 </template>
