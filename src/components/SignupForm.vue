@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
 import { AUTH_TOKEN, SIGNUP_URL } from '@/utils/constants'
+import { useAuth } from '@/composables/auth'
 
 const username = ref('')
 const password = ref('')
@@ -11,28 +11,20 @@ const lastName = ref('')
 const email = ref('')
 const router = useRouter()
 
-const postNewUser = async (data: NewUserData) => {
-  const response = await axios.post<SignupResponse>(SIGNUP_URL, data).catch((err) => {
-    console.error(err)
-    return undefined
-  })
-
-  return response?.data.auth_token
-}
-
 const signup = async () => {
-  const token = await postNewUser({
+  const data = await useAuth<SignupResponse, NewUserData>(SIGNUP_URL, {
     username: username.value,
     password: password.value,
     firstName: firstName.value,
     lastName: lastName.value,
     email: email.value
   })
-  if (!token) {
+  if (!data.value?.auth_token) {
     alert('Failed to create a user. Please try again!')
     return
   }
 
+  const token = data.value.auth_token
   localStorage.setItem(AUTH_TOKEN, token)
   router.push('/')
 }

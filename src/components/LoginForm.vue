@@ -2,29 +2,24 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { AUTH_TOKEN, LOGIN_URL } from '@/utils/constants'
-import axios from 'axios'
+import { useAuth } from '@/composables/auth'
 
 const username = ref('')
 const password = ref('')
 const router = useRouter()
 
-const fetchUserData = async (data: LoginData) => {
-  const response = await axios.post<LoginResponse>(LOGIN_URL, data).catch((err) => {
-    console.error(err)
-    return undefined
+const login = async () => {
+  const data = await useAuth<LoginResponse, LoginData>(LOGIN_URL, {
+    username: username.value,
+    password: password.value
   })
 
-  return response?.data.token
-}
-
-const login = async () => {
-  const token = await fetchUserData({ username: username.value, password: password.value })
-
-  if (!token) {
+  if (!data.value?.token) {
     alert('Invalid username or password')
     return
   }
 
+  const token = data.value.token
   localStorage.setItem(AUTH_TOKEN, token)
   router.push('/')
 }
