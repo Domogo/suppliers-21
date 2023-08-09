@@ -19,21 +19,22 @@ const { data, error } = await useFetch<SuppliersResponse>(url)
 </script>
 
 <template>
-  <div>Suppliers:</div>
+  <h1>Suppliers:</h1>
 
   <div v-if="error">{{ error }}</div>
 
-  <div>{{ data?.count }}</div>
-  <div>
-    <ul>
-      <li v-for="supplier in data?.results" :key="supplier.id">
+  <div class="container">
+    <div class="card" v-for="supplier in data?.results" :key="supplier.id">
+      <h2>
         {{ supplier.name }}
-      </li>
-    </ul>
+      </h2>
+      <p>{{ supplier.description }}</p>
+    </div>
   </div>
 
   <div>
     <button v-if="data?.previous" @click.prevent="fetchPrev">Previous</button>
     <button v-if="data?.next" @click.prevent="fetchNext">Next</button>
+    <div>There are {{ data?.count }} suppliers total.</div>
   </div>
 </template>

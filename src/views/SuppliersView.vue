@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SupplierList from '@/components/SupplierList.vue'
 </script>
+
 <template>
   <Suspense>
     <SupplierList />

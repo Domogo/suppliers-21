@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import QuotesList from '@/components/QuotesList.vue'
+</script>
+
 <template>
-  <div>Quotes</div>
+  <Suspense>
+    <QuotesList />
+    <template #fallback>
+      <div>No quotes found</div>
+    </template>
+  </Suspense>
 </template>
